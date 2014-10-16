@@ -3,7 +3,7 @@ circRNA_finder
 
 Scripts required for running the pipeline to find circular RNAs from RNA-seq data, as used in (Westholm et al, Cell Reports, 2014).
 
-Contailn the following files:
+Contains the following files:
 - filterCirc.awk
 - filterSpliceSiteCircles.pl
 - postProcessStarAlignment.pl
