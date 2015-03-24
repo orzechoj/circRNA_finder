@@ -13,7 +13,7 @@ use FindBin;
 ## For each library, creates the following files
 ## - bed file with all circular junctions from STAR
 ## - bed file with circular junction supported by splice sites
-## - indexed bed files with all chimeric reads
+## - indexed bam files with all chimeric reads
 
 
 #############
