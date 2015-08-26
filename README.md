@@ -32,6 +32,9 @@ Next, run the post processing scripts. If there are STAR outputs for many data s
 
 
 For each library the following output files are produced:
+
 a) <lib name>_filteredJunctions.bed: A bed file with all circular junctions found by the pipeline. The score column indicates the  number reads spanning each junction.
+
 b) <lib name>_s_filteredJunctions.bed: A bed file with those juction in (a) that are flanked by GT-AG splice sites. The score column indicates the  number reads spanning each junction.
+
 c) <lib name>_s_filteredJunctions_fw.bed: A bed file with the same circular junctions as in file (b), but here the score column gives the average number of forward spliced reads at both splice sites around each circular junction.
