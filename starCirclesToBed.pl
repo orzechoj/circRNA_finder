@@ -33,7 +33,7 @@ while(<IN>){
 
   my $score = $fields[1];
   my $chr = $fields[2];
-  my $start = $fields[3] + 1;
+  my $start = $fields[3];
   my $end = $fields[4] - 1;
   my $strand = $fields[5];
   my $hasSplice = $fields[6];
