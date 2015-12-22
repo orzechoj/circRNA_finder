@@ -3,7 +3,7 @@ circRNA_finder
 
 Scripts required for running the pipeline to find circular RNAs from RNA-seq data, as used in
 
-Jakub O. Westholm, Pedro Miura, Sara Olson, Sol Shenker, Brian Joseph, Piero Sanfilippo, Susan E. Celniker, Brenton R. Graveley, and Eric C. Lai. Genome-wide Analysis of Drosophila Circular RNAs Reveals Their Structural and Sequence Properties and Age-Dependent Neural Accumulation. Westholm et al. Cell Reports, 2014.
+[Jakub O. Westholm, Pedro Miura, Sara Olson, Sol Shenker, Brian Joseph, Piero Sanfilippo, Susan E. Celniker, Brenton R. Graveley, and Eric C. Lai. Genome-wide Analysis of Drosophila Circular RNAs Reveals Their Structural and Sequence Properties and Age-Dependent Neural Accumulation. Westholm et al. Cell Reports, 2014.] (http://www.cell.com/cell-reports/abstract/S2211-1247(14)00931-0?_returnURL=http%3A%2F%2Flinkinghub.elsevier.com%2Fretrieve%2Fpii%2FS2211124714009310%3Fshowall%3Dtrue)
 
 Contains the following files:
 - filterCirc.awk
