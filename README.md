@@ -3,7 +3,7 @@ circRNA_finder
 
 Scripts required for running the pipeline to find circular RNAs from RNA-seq data, as used in
 
-Jakub O. Westholm, Pedro Miura, Sara Olson, Sol Shenker, Brian Joseph, Piero Sanfilippo, Susan E. Celniker, Brenton R. Graveley, and Eric C. Lai. Genome-wide Analysis of Drosophila Circular RNAs Reveals Their Structural and Sequence Properties and Age-Dependent Neural Accumulation. Westholm et al. Cell Reports, 2014. (http://www.cell.com/cell-reports/abstract/S2211-1247(14)00931-0?_returnURL=http%3A%2F%2Flinkinghub.elsevier.com%2Fretrieve%2Fpii%2FS2211124714009310%3Fshowall%3Dtrue)
+Jakub O. Westholm, Pedro Miura, Sara Olson, Sol Shenker, Brian Joseph, Piero Sanfilippo, Susan E. Celniker, Brenton R. Graveley, and Eric C. Lai. [Genome-wide Analysis of Drosophila Circular RNAs Reveals Their Structural and Sequence Properties and Age-Dependent Neural Accumulation](https://www.cell.com/cell-reports/abstract/S2211-1247(14)00931-0) Westholm et al. Cell Reports, 2014.
 
 Contains the following files:
 - filterCirc.awk
@@ -17,7 +17,7 @@ Contains the following files:
 These scripts have been tested on various Linux distributions. Before they can be run, make sure that the following prerequisites are installed:
  - perl
  - awk
- - STAR (versions 2.4.1c, 2.3.1o and 2.3.1s.t have worked, not version 2.3.0)
+ - STAR (tesed on version 2.6.0c)
  - samtools
 
 
@@ -32,7 +32,7 @@ To run the scripts to identify circular RNAs, first run STAR, once for each data
 Next, run the post processing scripts. If there are STAR outputs for many data sets in the same folder, this command will process each of these in turn:
 
 ```bash
-./postProcessStarAlignment.pl [directory with STAR results] [output directory]
+./postProcessStarAlignment.pl [directory with STAR results] [minimum length of circular RNAs] [output directory]
 ```
 
 For each library the following output files are produced:
