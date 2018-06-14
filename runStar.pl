@@ -28,7 +28,7 @@ my $outPrefix = $ARGV[3];
 #############
 ## Hard coded parameters
 my $starCmd = "STAR";
-my $nThreads = 2;
+my $nThreads = 4;
 my $chimSegMin = 20;
 my $alignIntronMax = 500000;
 my $alignTxPerReadMax = 100000;
