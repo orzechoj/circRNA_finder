@@ -11,14 +11,16 @@
 ## - name (unique nr + "s" if the circle matches a splice junction)
 ## - score (nr of supporting reads)
 ## - strand
-
-## ex: prog/starCirclesToBed.pl MHcircCollapsed.txt
+##
+## Also takes an argument for minimum genomic lengh. Cadidate circular RNAs shorter than this are removed.
+##
+## ex: prog/starCirclesToBed.pl MHcircCollapsed.txt 200
 
 
 #############
 ## Arguments
 my $starPostFile = $ARGV[0];
-
+my $minLen = $ARGV[1];
 
 ################
 ## 'Main'
@@ -42,5 +44,7 @@ while(<IN>){
   my $useId = $i;
   if($hasSplice){ $useId = $useId."s"; }
 
-  print $chr."\t".$start."\t".$end."\t".$useId."\t".$score."\t".$strand."\n";
+  if(abs($end-$start) >= $minLen){
+    print $chr."\t".$start."\t".$end."\t".$useId."\t".$score."\t".$strand."\n";
+  }
 }

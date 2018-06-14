@@ -23,7 +23,9 @@ use FindBin;
 #############
 ## Arguments
 my $inDir = $ARGV[0];
-my $outDir = $ARGV[1];
+my $minLen = $ARGV[1];
+my $outDir = $ARGV[2];
+
 
 if (not defined $inDir or not defined $outDir) {
   die "Run the post processung script like this: postProcessStarAlignment.pl <directory with STAR data> <output directory>\n";
@@ -66,11 +68,14 @@ foreach my $i (1..$nrLibs){
 
 
   ####
-  ## Convert circular junctions to bed format
+  ## Convert circular junctions to bed format and filter on length
   my $allCirclesBedFile = $outDir.$libnames[$i-1]."filteredJunctions.bed";
-  my $makeBedFileCmd = "$makeBedFileProg $filteredStarFile > $allCirclesBedFile";
+  my $makeBedFileCmd = "$makeBedFileProg $filteredStarFile $minLen > $allCirclesBedFile";
   print STDERR "Converting to .bed file...\n";
   system($makeBedFileCmd);
+
+
+
 
 
   #####
@@ -80,7 +85,7 @@ foreach my $i (1..$nrLibs){
   print STDERR "Filtering circle junctions on splice sites...\n";
   system($filterBedFileCmd);
 
-  
+
   #####
   ## Make bed file for circular junctions supported by splice sites, with nr of forward spliced reads
   chomp $junctionFiles[$i-1];
