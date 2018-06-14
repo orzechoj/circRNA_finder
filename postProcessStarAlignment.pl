@@ -66,7 +66,7 @@ foreach my $i (1..$nrLibs){
 
 
   ####
-  ## Comvert circular junctions to bed format
+  ## Convert circular junctions to bed format
   my $allCirclesBedFile = $outDir.$libnames[$i-1]."filteredJunctions.bed";
   my $makeBedFileCmd = "$makeBedFileProg $filteredStarFile > $allCirclesBedFile";
   print STDERR "Converting to .bed file...\n";
@@ -90,7 +90,7 @@ foreach my $i (1..$nrLibs){
   print STDERR "Getting forward spliced reads for circle junctions with splice sites...\n";
   system($getFwSpliceCmd);
 
-  
+
   ######
   ## Make indexed bed files
   chomp $samFiles[$i-1];

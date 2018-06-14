@@ -5,9 +5,8 @@ use strict;
 ###################
 ## Run STAR to finding circular RNAs
 ##
-## This command runs STAR, to find candidates for chimeric transcripts.
-## The results of running this script are then post-processed with 
-## postProcessStarAlignment.pl
+## This command runs STAR (version 2.6.0 or later), to find candidates for chimeric transcripts.
+## The results of running this script are then post-processed with postProcessStarAlignment.pl
 
 ## in:
 ## - fastq file with R1 reads
@@ -31,12 +30,10 @@ my $outPrefix = $ARGV[3];
 my $starCmd = "STAR";
 my $nThreads = 2;
 my $chimSegMin = 20;
-my $alignIntronMax = 100000;
+my $alignIntronMax = 500000;
 my $alignTxPerReadMax = 100000;
 my $outFilterMmMax = 4;
 
-my $fullCmd = "$starCmd --genomeDir $genomeDir --readFilesIn $inFile1 $inFile2 --runThreadN $nThreads --chimSegmentMin $chimSegMin --chimScoreMin 1 --alignIntronMax $alignIntronMax --outFilterMismatchNmax $outFilterMmMax --alignTranscriptsPerReadNmax $alignTxPerReadMax --outFilterMultimapNmax 2 --outFileNamePrefix $outPrefix";
+my $fullCmd = "$starCmd --genomeDir $genomeDir --readFilesCommand gunzip -c --readFilesIn $inFile1 $inFile2 --runThreadN $nThreads --chimSegmentMin $chimSegMin --chimScoreMin 1 --alignIntronMax $alignIntronMax --outFilterMismatchNmax $outFilterMmMax --alignTranscriptsPerReadNmax $alignTxPerReadMax --twopassMode Basic --outSAMtype BAM SortedByCoordinate --chimOutType Junctions SeparateSAMold --outFilterMultimapNmax 2 --outFileNamePrefix $outPrefix";
 
 system($fullCmd);
-
-
