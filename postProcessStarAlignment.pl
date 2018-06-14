@@ -2,12 +2,14 @@
 
 use strict;
 use File::Basename;
+use Getopt::Long;
 use FindBin;
 
 #######################################################################################################
 ## Script for post processing the results from the STAR alignment, to filter and format circular RNAs.
 ## Takes the following arguments:
 ## - a directory with STAR output
+## - the minimum genomic length of the circular RNAs (optional, defualt is 200nt).
 ## - a directory for the bed files with circular RNAs
 ##
 ## For each library, creates the following files
@@ -22,10 +24,13 @@ use FindBin;
 
 #############
 ## Arguments
-my $inDir = $ARGV[0];
-my $minLen = $ARGV[1];
-my $outDir = $ARGV[2];
+my $inDir = "";
+my $minLen = 200;
+my $outDir = "";
 
+GetOptions("starDir=s" => \$inDir,
+           "outDir=s" => \$outDir,
+           "minLen=i" => \$minLen);
 
 if (not defined $inDir or not defined $outDir) {
   die "Run the post processung script like this: postProcessStarAlignment.pl <directory with STAR data> <output directory>\n";

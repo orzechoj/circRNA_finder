@@ -1,5 +1,6 @@
 #!/usr/bin/perl
 
+use Getopt::Long;
 use strict;
 
 ###################
@@ -20,10 +21,16 @@ use strict;
 
 #############
 ## Arguments
-my $inFile1 = $ARGV[0];
-my $inFile2 = $ARGV[1];
-my $genomeDir = $ARGV[2];
-my $outPrefix = $ARGV[3];
+my $inFile1 = "";
+my $inFile2 = "";
+my $genomeDir = "";
+my $outPrefix = "";
+
+GetOptions("inFile1=s" => \$inFile1,
+           "inFile2=s" => \$inFile2,
+           "genomeDir=s" => \$genomeDir,
+           "outPrefix=s" => \$outPrefix);
+
 
 #############
 ## Hard coded parameters
