@@ -81,8 +81,6 @@ foreach my $i (1..$nrLibs){
 
 
 
-
-
   #####
   ## Make bed file with only circular junctions supported by splice sites
   my $spliceCirclesBedFile = $outDir.$libnames[$i-1]."s_filteredJunctions.bed";
