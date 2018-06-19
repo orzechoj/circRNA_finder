@@ -21,12 +21,17 @@ These scripts have been tested on various Linux distributions. Before they can b
  - samtools
 
 
-To run the scripts to identify circular RNAs, first run STAR, once for each data set:
+To run the scripts to identify circular RNAs, first run STAR, once for each data set. For paired end data, the command is
 
 ```bash
 ./runStar.pl --inFile1 [R1 fastq] --inFile2 [R2 fastq] --genomeDir [path to STAR genome] --outPrefix [output directory and prefix]
 ```
 
+And for single end data simply omit inFile2
+
+```bash
+./runStar.pl --inFile1 [R1 fastq] --genomeDir [path to STAR genome] --outPrefix [output directory and prefix]
+```
 
 
 Next, run the post processing scripts. If there are STAR outputs for many data sets in the same folder, this command will process each of these in turn:
