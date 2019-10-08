@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-use strict;
+    use strict;
 use File::Basename;
 use Getopt::Long;
 use FindBin;
@@ -33,7 +33,7 @@ GetOptions("starDir=s" => \$inDir,
            "minLen=i" => \$minLen);
 
 if (not defined $inDir or not defined $outDir) {
-  die "Run the post processung script like this: postProcessStarAlignment.pl <directory with STAR data> <output directory>\n";
+    die "Run the post processung script like this: postProcessStarAlignment.pl <directory with STAR data> <output directory>\n";
 }
 
 ## The scripts used to process STAR output
@@ -53,72 +53,72 @@ my @junctionFiles = `ls $inDir*SJ.out.tab`;
 
 my @libnames = ();
 foreach my $currentLib (@chimericFiles){
-  chomp $currentLib;
-  my $newName = basename($currentLib);
-  $newName =~ s/Chimeric.out.junction//g;
-  push @libnames, $newName;
+    chomp $currentLib;
+    my $newName = basename($currentLib);
+    $newName =~ s/Chimeric.out.junction//g;
+    push @libnames, $newName;
 }
 my $nrLibs = @libnames;
 
 foreach my $i (1..$nrLibs){
-  print STDERR "****** Processing ".$libnames[$i-1]." (".$i."/".$nrLibs.") ******\n";
+    print STDERR "****** Processing ".$libnames[$i-1]." (".$i."/".$nrLibs.") ******\n";
 
-  #####
-  ## Filter to get the circular junctions from the chimeric STAR output
-  my $filteredStarFile = $outDir.$libnames[$i-1]."filteredJunctions.txt";
-  my $filterJunctionsCmd = "cat $chimericFiles[$i-1] | awk -f $filterStarProg | sort | uniq -c | sort -k1,1rn > $filteredStarFile";
-  print STDERR "Filtering chimeric transcripts...\n";
-  system($filterJunctionsCmd);
-
-
-
-  ####
-  ## Convert circular junctions to bed format and filter on length
-  my $allCirclesBedFile = $outDir.$libnames[$i-1]."filteredJunctions.bed";
-  my $makeBedFileCmd = "$makeBedFileProg $filteredStarFile $minLen > $allCirclesBedFile";
-  print STDERR "Converting to .bed file...\n";
-  system($makeBedFileCmd);
+    #####
+    ## Filter to get the circular junctions from the chimeric STAR output
+    my $filteredStarFile = $outDir.$libnames[$i-1]."filteredJunctions.txt";
+    my $filterJunctionsCmd = "cat $chimericFiles[$i-1] | awk -f $filterStarProg | sort | uniq -c | sort -k1,1rn > $filteredStarFile";
+    print STDERR "Filtering chimeric transcripts...\n";
+    system($filterJunctionsCmd);
 
 
 
-  #####
-  ## Make bed file with only circular junctions supported by splice sites
-  my $spliceCirclesBedFile = $outDir.$libnames[$i-1]."s_filteredJunctions.bed";
-  my $filterBedFileCmd = "$filterBedFileProg $allCirclesBedFile > $spliceCirclesBedFile";
-  print STDERR "Filtering circle junctions on splice sites...\n";
-  system($filterBedFileCmd);
+    ####
+    ## Convert circular junctions to bed format and filter on length
+    my $allCirclesBedFile = $outDir.$libnames[$i-1]."filteredJunctions.bed";
+    my $makeBedFileCmd = "$makeBedFileProg $filteredStarFile $minLen > $allCirclesBedFile";
+    print STDERR "Converting to .bed file...\n";
+    system($makeBedFileCmd);
 
 
-  #####
-  ## Make bed file for circular junctions supported by splice sites, with nr of forward spliced reads
-  chomp $junctionFiles[$i-1];
-  my $tmpJunctionFile = $junctionFiles[$i-1];
-  my $fwSplicedBedFile = $outDir.$libnames[$i-1]."s_filteredJunctions_fw.bed";
-  my $getFwSpliceCmd = "$nrFwSplicedReadsProg $spliceCirclesBedFile $tmpJunctionFile > $fwSplicedBedFile";
-  print STDERR "Getting forward spliced reads for circle junctions with splice sites...\n";
-  system($getFwSpliceCmd);
+
+    #####
+    ## Make bed file with only circular junctions supported by splice sites
+    my $spliceCirclesBedFile = $outDir.$libnames[$i-1]."s_filteredJunctions.bed";
+    my $filterBedFileCmd = "$filterBedFileProg $allCirclesBedFile > $spliceCirclesBedFile";
+    print STDERR $filterBedFileCmd."\n";
+    system($filterBedFileCmd);
 
 
-  ######
-  ## Make indexed bed files
-  chomp $samFiles[$i-1];
-  my $junctionBamFile = $samFiles[$i-1];
-  $junctionBamFile =~ s/\.sam/\.bam/g;
-  my $junctionSortedBamFile = $junctionBamFile;
-  $junctionSortedBamFile =~ s/\.bam/\.sorted/g;
-  my $makeBamCmd = "samtools view -bS -o  $junctionBamFile $samFiles[$i-1]";
-  my $sortBamCmd = "samtools sort $junctionBamFile $junctionSortedBamFile";
-  my $indexBamCmd = "samtools index $junctionSortedBamFile.bam";
+    #####
+    ## Make bed file for circular junctions supported by splice sites, with nr of forward spliced reads
+    chomp $junctionFiles[$i-1];
+    my $tmpJunctionFile = $junctionFiles[$i-1];
+    my $fwSplicedBedFile = $outDir.$libnames[$i-1]."s_filteredJunctions_fw.bed";
+    my $getFwSpliceCmd = "$nrFwSplicedReadsProg $spliceCirclesBedFile $tmpJunctionFile > $fwSplicedBedFile";
+    print STDERR "Getting forward spliced reads for circle junctions with splice sites...\n";
+    system($getFwSpliceCmd);
 
-  print STDERR "Creating .bam file...\n";
-  system($makeBamCmd);
-  print STDERR "Sorting .bam file...\n";
-  system($sortBamCmd);
-  print STDERR "Indexing .bam file...\n";
-  system($indexBamCmd);
 
-  ######
-  ## Clean up
-  system("rm ".$filteredStarFile);
-  system("rm ".$junctionBamFile);
+    ######
+    ## Make indexed bam files
+    chomp $samFiles[$i-1];
+    my $junctionBamFile = $samFiles[$i-1];
+    $junctionBamFile =~ s/\.sam/\.bam/g;
+    my $junctionSortedBamFile = $junctionBamFile;
+    $junctionSortedBamFile =~ s/\.bam/\.sorted.bam/g;
+    my $makeBamCmd = "samtools view -bS -o $junctionBamFile $samFiles[$i-1]";
+    my $sortBamCmd = "samtools sort -o $junctionSortedBamFile $junctionBamFile";
+    my $indexBamCmd = "samtools index $junctionSortedBamFile";
+
+    print STDERR "Creating .bam file...\n";
+    system($makeBamCmd);
+    print STDERR "Sorting .bam file...\n";
+    system($sortBamCmd);
+    print STDERR "Indexing .bam file...\n";
+    system($indexBamCmd);
+
+    ######
+    ## Clean up
+    system("rm ".$filteredStarFile);
+    system("rm ".$junctionBamFile);
 }

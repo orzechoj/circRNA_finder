@@ -34,7 +34,7 @@ GetOptions("inFile1=s" => \$inFile1,
 
 #############
 ## Hard coded parameters
-my $starCmd = "STAR";
+my $starCmd = "/proj/uppstore2017171/private/jacke/circrna_benchmark/STAR/source/STAR";
 my $nThreads = 4;
 my $chimSegMin = 20;
 my $alignIntronMax = 500000;
