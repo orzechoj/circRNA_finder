@@ -24,8 +24,6 @@ my $minLen = $ARGV[1];
 
 ################
 ## 'Main'
-
-
 open IN, $starPostFile or die "Cannot open $starPostFile\n";
 my $i = 0;
 

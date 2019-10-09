@@ -30,7 +30,7 @@ my $outDir = "";
 
 GetOptions("starDir=s" => \$inDir,
            "outDir=s" => \$outDir,
-           "minLen=i" => \$minLen);
+           "minLen=f" => \$minLen);
 
 if (not defined $inDir or not defined $outDir) {
     die "Run the post processung script like this: postProcessStarAlignment.pl <directory with STAR data> <output directory>\n";
@@ -42,6 +42,8 @@ my $filterStarProg = $scriptDir."/filterCirc.awk";
 my $makeBedFileProg = $scriptDir."/starCirclesToBed.pl";
 my $filterBedFileProg = $scriptDir."/filterSpliceSiteCircles.pl";
 my $nrFwSplicedReadsProg = $scriptDir."/nrForwardSplicedReads.pl";
+
+
 
 ################
 ## 'Main'
@@ -71,7 +73,6 @@ foreach my $i (1..$nrLibs){
     system($filterJunctionsCmd);
 
 
-
     ####
     ## Convert circular junctions to bed format and filter on length
     my $allCirclesBedFile = $outDir.$libnames[$i-1]."filteredJunctions.bed";
@@ -80,12 +81,10 @@ foreach my $i (1..$nrLibs){
     system($makeBedFileCmd);
 
 
-
     #####
     ## Make bed file with only circular junctions supported by splice sites
     my $spliceCirclesBedFile = $outDir.$libnames[$i-1]."s_filteredJunctions.bed";
     my $filterBedFileCmd = "$filterBedFileProg $allCirclesBedFile > $spliceCirclesBedFile";
-    print STDERR $filterBedFileCmd."\n";
     system($filterBedFileCmd);
 
 
@@ -111,10 +110,13 @@ foreach my $i (1..$nrLibs){
     my $indexBamCmd = "samtools index $junctionSortedBamFile";
 
     print STDERR "Creating .bam file...\n";
+    #print STDERR $makeBamCmd."\n";
     system($makeBamCmd);
     print STDERR "Sorting .bam file...\n";
+    #print STDERR $sortBamCmd."\n";    
     system($sortBamCmd);
     print STDERR "Indexing .bam file...\n";
+    #print STDERR $indexBamCmd."\n";
     system($indexBamCmd);
 
     ######

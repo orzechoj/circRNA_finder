@@ -25,11 +25,13 @@ my $inFile1 = "";
 my $inFile2 = "";
 my $genomeDir = "";
 my $outPrefix = "";
+my $maxMismatchFraction = 0.02;
 
 GetOptions("inFile1=s" => \$inFile1,
            "inFile2=s" => \$inFile2,
            "genomeDir=s" => \$genomeDir,
-           "outPrefix=s" => \$outPrefix);
+           "outPrefix=s" => \$outPrefix,
+	   "maxMismatch=f" => \$maxMismatchFraction);
 
 
 #############
@@ -41,6 +43,6 @@ my $alignIntronMax = 500000;
 my $alignTxPerReadMax = 100000;
 my $outFilterMmMax = 4;
 
-my $fullCmd = "$starCmd --genomeDir $genomeDir --readFilesCommand gunzip -c --readFilesIn $inFile1 $inFile2 --runThreadN $nThreads --chimSegmentMin $chimSegMin --chimScoreMin 1 --alignIntronMax $alignIntronMax --outFilterMismatchNmax $outFilterMmMax --alignTranscriptsPerReadNmax $alignTxPerReadMax --twopassMode Basic --outSAMtype BAM SortedByCoordinate --chimOutType Junctions SeparateSAMold --outFilterMultimapNmax 2 --outFileNamePrefix $outPrefix";
+my $fullCmd = "$starCmd --genomeDir $genomeDir --readFilesCommand gunzip -c --readFilesIn $inFile1 $inFile2 --runThreadN $nThreads --chimSegmentMin $chimSegMin --chimScoreMin 1 --alignIntronMax $alignIntronMax --outFilterMismatchNoverReadLmax $maxMismatchFraction --alignTranscriptsPerReadNmax $alignTxPerReadMax --twopassMode Basic --outSAMtype BAM SortedByCoordinate --chimOutType Junctions SeparateSAMold --outFilterMultimapNmax 2 --outFileNamePrefix $outPrefix";
 
 system($fullCmd);
