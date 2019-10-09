@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-    use strict;
+use strict;
 use File::Basename;
 use Getopt::Long;
 use FindBin;
@@ -101,7 +101,7 @@ foreach my $i (1..$nrLibs){
     ######
     ## Make indexed bam files
     chomp $samFiles[$i-1];
-    my $junctionBamFile = $samFiles[$i-1];
+    my $junctionBamFile = $outDir."/".basename($samFiles[$i-1]);
     $junctionBamFile =~ s/\.sam/\.bam/g;
     my $junctionSortedBamFile = $junctionBamFile;
     $junctionSortedBamFile =~ s/\.bam/\.sorted.bam/g;
@@ -110,13 +110,10 @@ foreach my $i (1..$nrLibs){
     my $indexBamCmd = "samtools index $junctionSortedBamFile";
 
     print STDERR "Creating .bam file...\n";
-    #print STDERR $makeBamCmd."\n";
     system($makeBamCmd);
     print STDERR "Sorting .bam file...\n";
-    #print STDERR $sortBamCmd."\n";    
     system($sortBamCmd);
     print STDERR "Indexing .bam file...\n";
-    #print STDERR $indexBamCmd."\n";
     system($indexBamCmd);
 
     ######
