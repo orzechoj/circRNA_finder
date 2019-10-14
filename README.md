@@ -17,21 +17,18 @@ Contains the following files:
 These scripts have been tested on various Linux distributions. Before they can be run, make sure that the following prerequisites are installed:
  - perl
  - awk
- - STAR (tesed on version 2.6.0c)
+ - STAR (tesed on version 2.7.2d)
  - samtools
 
 
 To run the scripts to identify circular RNAs, first run STAR, once for each data set. For paired end data, the command is
 
 ```bash
-./runStar.pl --inFile1 [R1 fastq] --inFile2 [R2 fastq] --genomeDir [path to STAR genome] --outPrefix [output directory and prefix]
+./runStar.pl --inFile1 [R1 fastq] --inFile2 [R2 fastq] --genomeDir [path to STAR genome] --maxMismatch [max mismatches realtive to read length, default 0.02] --outPrefix [output directory and prefix]
 ```
 
-And for single end data simply omit inFile2
+Here `--maxMismatch` sets the `outFilterMismatchNoverReadLmax` parameter in STAR.
 
-```bash
-./runStar.pl --inFile1 [R1 fastq] --genomeDir [path to STAR genome] --outPrefix [output directory and prefix]
-```
 
 
 Next, run the post processing scripts. If there are STAR outputs for many data sets in the same folder, this command will process each of these in turn:
@@ -47,3 +44,5 @@ a) <lib name>_filteredJunctions.bed: A bed file with all circular junctions foun
 b) <lib name>_s_filteredJunctions.bed: A bed file with those juction in (a) that are flanked by GT-AG splice sites. The score column indicates the  number reads spanning each junction.
 
 c) <lib name>_s_filteredJunctions_fw.bed: A bed file with the same circular junctions as in file (b), but here the score column gives the average number of forward spliced reads at both splice sites around each circular junction.
+
+d) (Sorted and indexed) bam file with all chimeric reads identified by STAR. The circRNA junction spanning reads are a subset of these.
