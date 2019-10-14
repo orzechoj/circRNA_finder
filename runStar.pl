@@ -39,7 +39,7 @@ GetOptions("inFile1=s" => \$inFile1,
 my $starCmd = "/proj/uppstore2017171/private/jacke/circrna_benchmark/STAR/source/STAR";
 my $nThreads = 4;
 my $chimSegMin = 20;
-my $alignIntronMax = 500000;
+my $alignIntronMax = 1000000;
 my $alignTxPerReadMax = 100000;
 my $outFilterMmMax = 4;
 
