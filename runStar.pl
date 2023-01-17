@@ -36,7 +36,7 @@ GetOptions("inFile1=s" => \$inFile1,
 
 #############
 ## Hard coded parameters
-my $starCmd = "../star_2.7.2d/STAR-2.7.2d/source/STAR";
+my $starCmd = "STAR";
 my $nThreads = 4;
 my $chimSegMin = 20;
 my $alignIntronMax = 1000000;

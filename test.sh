@@ -4,7 +4,7 @@ set -euo pipefail
 
 # Generate STAR index
 mkdir mbl_locus_star_genome
-../star_2.7.2d/STAR-2.7.2d/source/STAR --runThreadN 4 \
+STAR --runThreadN 4 \
      --runMode genomeGenerate \
      --genomeDir mbl_locus_star_genome \
      --genomeSAindexNbases 8 \
