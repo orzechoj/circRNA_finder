@@ -1,3 +1,6 @@
+![example event parameter](https://github.com/orzechoj/circRNA_finder/actions/workflows/ci.yml/badge.svg?event=push)
+
+
 circRNA_finder
 ==============
 
