@@ -12,7 +12,7 @@ Jakub O. Westholm, Pedro Miura, Sara Olson, Sol Shenker, Brian Joseph, Piero San
 These scripts have been tested on various Linux distributions. Before they can be run, make sure that the following prerequisites are installed:
  - perl
  - awk
- - STAR (tesed on version 2.7.2d)
+ - STAR (tested on version 2.7.9a)
  - samtools
 
 
