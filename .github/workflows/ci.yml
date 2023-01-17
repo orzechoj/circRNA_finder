@@ -1,0 +1,16 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install
+      run: |
+        sudo apt-get install rna-star samtools
+    - name: Test
+      run: |
+        ./test.sh
